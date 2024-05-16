@@ -30,17 +30,18 @@ function createFournisseur(nom, contact,adresse) {
     });
 
 }
-function updateFournisseur(id, nom, contact,adresse) {
-    const request = { id, nom,contact, adresse};
-  
-    client.updateFournisseur(request, (error, response) => {
+function updateFournisseur(id, nom, contact, adresse) {
+  const request = { id, nom, contact, adresse };
+
+  client.updateFournisseur(request, (error, response) => {
       if (error) {
-        console.error('Erreur lors de la mise à jour du fournisseur:', error.message);
-        return;
+          console.error('Erreur lors de la mise à jour du fournisseur:', error.message);
+          return;
       }
       console.log('Fournisseur mis à jour avec succès:', response.fournisseur);
-    });
+  });
 }
+
 function deleteFournisseur(id) {
     const request = { id };
   
@@ -57,9 +58,9 @@ const newFournisseurName = 'Nouveau Fournisseur';
 const newFournisseurConatct= 'Conatct du nouveau fournisseur';
 const newFournisseurAdresse= 'Adresse du nouveau fournisseur';
 createFournisseur(newFournisseurName, newFournisseurConatct, newFournisseurAdresse); // Appel de la fonction pour créer un nouveau fournisseur
+//const FournisseurIdToFetch = '6645c37c44eafa9469b0fd7c';
 
-
-//const fournisseurIdToUpdate = '66453fe9ac23c8de9d20ffc5';
+//const fournisseurIdToUpdate = '6645c3a444eafa9469b0fd7e'; // Utilisez la même casse que dans la définition de la variable
 //const updatedFournisseurName = 'Fournisseur mis à jour';
 //const updatedFournisseurContact = 'Contact mise à jour';
 //const updatedFournisseurAdresse = 'Adresse mise à jour';
@@ -67,6 +68,7 @@ createFournisseur(newFournisseurName, newFournisseurConatct, newFournisseurAdres
 //updateFournisseur(fournisseurIdToUpdate, updatedFournisseurName, updatedFournisseurContact, updatedFournisseurAdresse);
 
 
-//const fournisseurIdToDelete = '66453fe9ac23c8de9d20ffc5';
+
+//const fournisseurIdToDelete = '6645c3a444eafa9469b0fd7e';
 
 //deleteFournisseur(fournisseurIdToDelete);

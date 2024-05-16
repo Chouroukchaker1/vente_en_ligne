@@ -1,3 +1,4 @@
+//proto
 syntax = "proto3"; // Utilisez la syntaxe Proto3
 package fournisseur; // Remplacer "client" par "fournisseur" pour le package
 

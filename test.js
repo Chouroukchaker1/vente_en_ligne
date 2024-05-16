@@ -75,16 +75,16 @@ function updateClient(clientId, nom, email,password) {
   });
 }
 // Appel de la fonction pour supprimer un client par ID
-//const clientIdToDelete = '664537efa981e6672a7af4cd';
+//const clientIdToDelete = '6645cced120d03542416ef63';
 //deleteClientById(clientIdToDelete);
 
 
 // Exemple d'utilisation
-//const clientIdToFetch = '664537efa981e6672a7af4cd';
+const clientIdToFetch = '664537efa981e6672a7af4cd';
 const newClientName = 'Nouveau Client';
 const newClientEmail = 'email du nouveau client';
 const newClientPassword = 'password du nouveau client';
-// Appel de la fonction pour créer un nouveau client
+//Appel de la fonction pour créer un nouveau client
 createClient(newClientName, newClientEmail,newClientPassword);
 
 
@@ -93,8 +93,8 @@ createClient(newClientName, newClientEmail,newClientPassword);
 
 
 
-//const clientIdToFetch = '664537efa981e6672a7af4cd';
+//const clientIdToFetch = '6645cced120d03542416ef63';
 //const newClientName = 'Nouveau Client';
 //const newClientEmail = 'Email du nouveau client';
 //const newClientPassword = 'password du nouveau client';
-//updateClient(clientIdToFetch, newClientName, newClientEmail,newClientPassword);
+//updateClient(clientIdToFetch, newClientName, newClientEmail,newClientPassword);!

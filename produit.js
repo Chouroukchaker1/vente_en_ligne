@@ -11,10 +11,10 @@ const produitSchema = new Schema({
     type: String,
     required: true,
   },
-  prix: {
-    type: Number, // Assurez-vous que le type correspond à celui attendu pour le prix
-    required: true
-  }
+  qualite: {
+    type: String,
+    required: true,
+  },
 });
 
 const Produit = mongoose.model('Produit', produitSchema);

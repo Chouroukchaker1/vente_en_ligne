@@ -12,7 +12,7 @@ const typeDefs = `#graphql
     id: String!
     nom: String!
     description: String!
-    prix: Float!
+    qualite: String!
   }
   
   type Client {
@@ -32,15 +32,19 @@ const typeDefs = `#graphql
   }
 
   type Mutation {
-    createFournisseur(nom: String!, contact: String!, adresse: String!): Fournisseur
-    deleteFournisseur(id: String!): String
-    createProduit(nom: String!, description: String!, prix: Float!): Produit
-    deleteProduit(id: String!): String
-    updateFournisseur(id: String!, nom: String!, contact: String!, adresse: String!): Fournisseur
-    updateProduit(id: String!, nom: String!, description: String!, prix: Float!): Produit 
-    createClient(nom: String!, email: String!, password: String!): Client
-    deleteClient(id: String!): String
-    updateClient(id: String!, nom: String!, email: String!, password: String!): Client
+    
+  createFournisseur(nom: String!, contact: String!, adresse: String!): Fournisseur
+  deleteFournisseur(id: String!): String
+  createProduit(nom: String!, description: String!, qualite: String!): Produit
+  deleteProduit(id: String!): String
+  updateFournisseur(id: String!, nom: String!, contact: String!, adresse: String!): Fournisseur
+     
+  createClient(nom: String!, email: String!, password: String!): Client
+  deleteClient(id: String!): String
+  updateClient(id: String!, nom: String!, email: String!, password: String!): Client
+  updateProduit(id: ID!, nom: String!, description: String!, qualite: String!): Produit
+
+
   }
 `;
 

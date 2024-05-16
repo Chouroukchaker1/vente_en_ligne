@@ -68,28 +68,30 @@ const fournisseurService = {
     }
   },
   
-
   updateFournisseur: async (call, callback) => {
     try {
-      const { id, nom, contact,adresse} = call.request; // Update parameter names
-      const fournisseur = await Fournisseur.findByIdAndUpdate(
-        id,
-        { nom, contact,adresse },
-        { new: true } // Return the updated fournisseur
-      );
-
-      if (!fournisseur) {
-        return callback(new Error("Fournisseur non trouvé"));
-      }
-
-      // Send a Kafka event for fournisseur update
-      await sendFournisseurMessage('modification', fournisseur);
-
-      callback(null, { fournisseur });
+        const { id, nom, contact, adresse } = call.request; // Change from 'fournisseur_id' to 'id'
+        const fournisseur = await Fournisseur.findByIdAndUpdate(
+            id, // Change from 'fournisseur_id' to 'id'
+            { nom, contact, adresse },
+            { new: true }
+        );
+  
+        if (!fournisseur) {
+            // Si le fournisseur n'est pas trouvé, renvoie un statut NOT_FOUND gRPC
+            return callback({ code: grpc.status.NOT_FOUND, message: "Fournisseur non trouvé" });
+        }
+  
+        // Si le fournisseur est trouvé, envoyer les données du fournisseur mis à jour
+        await sendFournisseurMessage('modification', fournisseur);
+        callback(null, { fournisseur });
     } catch (err) {
-      callback(new Error("Erreur lors de la mise à jour du fournisseur: " + err.message));
+        console.error("Erreur lors de la mise à jour du fournisseur:", err);
+        // Si une autre erreur se produit, renvoie un statut gRPC INTERNAL
+        callback({ code: grpc.status.INTERNAL, message: "Erreur lors de la mise à jour du fournisseur: " + err.message });
     }
   },
+  
 
   deleteFournisseur: async (call, callback) => {
     try {

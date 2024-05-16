@@ -54,26 +54,14 @@ const produitService = {
     }
   },
 
- createFournisseur: async (call, callback) => { // Remplacer "createProduit" par "createFournisseur"
-    try {
-      const { nom, description } = call.request;
-      const nouveauFournisseur = new Fournisseur({ nom, description }); // Remplacer "nouveauProduit" par "nouveauFournisseur" et "Produit" par "Fournisseur"
-      const fournisseur = await nouveauFournisseur.save(); // Remplacer "nouveauProduit" par "nouveauFournisseur" et "Produit" par "Fournisseur"
-      
-      await sendFournisseurMessage('creation', { id: fournisseur._id, nom, description }); // Remplacer "sendProduitMessage" par "sendFournisseurMessage"
-  
-      callback(null, { fournisseur }); // Remplacer "produit" par "fournisseur"
-    } catch (error) {
-      callback({ code: grpc.status.INTERNAL, message: error.message });
-    }
-  },
+ 
   createProduit: async (call, callback) => {
     try {
-      const { nom, description } = call.request;
-      const nouveauProduit = new Produit({ nom, description });
+      const { nom, description,qualite } = call.request;
+      const nouveauProduit = new Produit({ nom, description,qualite });
       const produit = await nouveauProduit.save();
       
-      await sendProduitMessage('creation', { id: produit._id, nom, description });
+      await sendProduitMessage('creation', { id: produit._id, nom, qualite });
   
       callback(null, { produit });
     } catch (error) {
@@ -85,25 +73,27 @@ const produitService = {
 
   updateProduit: async (call, callback) => {
     try {
-      const { produit_id, nom, description } = call.request;
-      const produit = await Produit.findByIdAndUpdate(
-        produit_id,
-        { nom, description },
-        { new: true } // Return the updated product
-      );
+        const { produit_id, nom, description, qualite } = call.request; // Change de 'produit_id' à 'id'
+        const produit = await Produit.findByIdAndUpdate(
+            produit_id,
+            { nom, description, qualite },
+            { new: true }
+        );
 
-      if (!produit) {
-        return callback({ code: grpc.status.NOT_FOUND, message: "Produit non trouvé" });
-      }
+        if (!produit) {
+            // Si le produit n'est pas trouvé, renvoie un statut NOT_FOUND gRPC
+            return callback({ code: grpc.status.NOT_FOUND, message: "Produit non trouvé" });
+        }
 
-      await sendProduitMessage('modification', produit);
-
-      callback(null, { produit });
+        // Si le produit est trouvé, envoyer les données du produit mis à jour
+        await sendProduitMessage('modification', produit);
+        callback(null, { produit });
     } catch (err) {
-      console.error("Erreur lors de la mise à jour du produit:", err);
-      callback({ code: grpc.status.INTERNAL, message: "Erreur lors de la mise à jour du produit: " + err.message });
+        console.error("Erreur lors de la mise à jour du produit:", err);
+        // Si une autre erreur se produit, renvoie un statut gRPC INTERNAL
+        callback({ code: grpc.status.INTERNAL, message: "Erreur lors de la mise à jour du produit: " + err.message });
     }
-  },
+},
 
 
 

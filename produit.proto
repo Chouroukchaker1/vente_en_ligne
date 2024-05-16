@@ -6,13 +6,13 @@ message Produit {
   string id = 1;
   string nom = 2;
   string description = 3;
-  float prix = 4; // Ajout du champ prix de type float
+  string qualite = 4;  
 }
 
 message CreateProduitRequest {
   string nom = 1;
   string description = 2;
-  float prix = 3; // Ajout du champ prix de type float
+  string qualite = 3;  
 }
 
 message CreateProduitResponse {
@@ -23,7 +23,7 @@ message UpdateProduitRequest {
   string id = 1;
   string nom = 2;
   string description = 3;
-  float prix = 4; // Ajout du champ prix de type float
+  string qualite=4;
 }
 
 message UpdateProduitResponse {
