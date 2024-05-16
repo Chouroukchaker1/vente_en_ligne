@@ -71,10 +71,14 @@ app.post('/client', async (req, res) => {
   try {
     const { nom, email, password } = req.body;
     const nouveauClient = new Client({ nom, email, password });
-    const client = await nouveauClient.save(); // Sauvegarder le client
-    // Envoyer un message Kafka pour l'événement de création de client
+    const client = await nouveauClient.save();
     await sendClientMessage('creation', { id: client._id, nom, email, password });
-    res.json(client); // Retourner le client créé
+    res.json(client);
+    clientClient.CreateClient({ nom, email, password }, (err, response) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    });
   } catch (err) {
     res.status(500).send("Erreur lors de la création du client: " + err.message);
   }
@@ -109,14 +113,18 @@ app.post('/produit', async (req, res) => {
   try {
     const { nom, description, qualite } = req.body;
     const nouveauProduit = new Produit({ nom, description, qualite });
-    const produit = await nouveauProduit.save(); // Sauvegarder le produit
-    //
+    const produit = await nouveauProduit.save();
     await sendProduitMessage('creation', { id: produit._id, nom, description, qualite });
-    res.json(produit); // Retourner le produit créé
-    } catch (err) {
-    res.status(500).send("Erreur lors de la création du produit: " + err.message);
-    }
+    res.json(produit);
+    produitClient.CreateProduit({ nom, description, qualite }, (err, response) => {
+      if (err) {
+        res.status(500).send(err);
+      }
     });
+  } catch (err) {
+    res.status(500).send("Erreur lors de la création du produit: " + err.message);
+  }
+});
     
     // Endpoint pour supprimer un produit
     app.delete('/produit/:id', async (req, res) => {
@@ -144,15 +152,20 @@ app.post('/produit', async (req, res) => {
     
     // Endpoint pour créer un fournisseur
     app.post('/fournisseur', async (req, res) => {
-    try {
-    const { nom, contact, adresse } = req.body;
-    const nouveauFournisseur = new Fournisseur({ nom, contact, adresse });
-    const fournisseur = await nouveauFournisseur.save();
-    await sendFournisseurMessage('creation', { id: fournisseur._id, nom, contact, adresse });
-    res.json(fournisseur);
-    } catch (err) {
-    res.status(500).send("Erreur lors de la création du fournisseur: " + err.message);
-    }
+      try {
+        const { nom, contact, adresse } = req.body;
+        const nouveauFournisseur = new Fournisseur({ nom, contact, adresse });
+        const fournisseur = await nouveauFournisseur.save();
+        await sendFournisseurMessage('creation', { id: fournisseur._id, nom, contact, adresse });
+        res.json(fournisseur);
+        fournisseurClient.CreateFournisseur({ nom, contact, adresse }, (err, response) => {
+          if (err) {
+            res.status(500).send(err);
+          }
+        });
+      } catch (err) {
+        res.status(500).send("Erreur lors de la création du fournisseur: " + err.message);
+      }
     });
     
     // Endpoint pour supprimer un fournisseur
