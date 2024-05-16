@@ -1,0 +1,56 @@
+syntax = "proto3"; // Utilisez la syntaxe Proto3
+package fournisseur; // Remplacer "client" par "fournisseur" pour le package
+
+// Définition des messages
+message Fournisseur { // Remplacer "Client" par "Fournisseur"
+  string id = 1;
+  string nom = 2;
+  string contact = 3;
+  string adresse=4;
+
+}
+
+message GetFournisseurRequest { // Remplacer "GetClientRequest" par "GetFournisseurRequest"
+  string fournisseur_id = 1; // Identifiant du fournisseur // Remplacer "client_id" par "fournisseur_id"
+}
+
+message GetFournisseurResponse { // Remplacer "GetClientResponse" par "GetFournisseurResponse"
+  Fournisseur fournisseur = 1; // Le fournisseur obtenu // Remplacer "Client" par "Fournisseur"
+}
+
+message CreateFournisseurRequest { // Remplacer "CreateClientRequest" par "CreateFournisseurRequest"
+  string nom = 1;
+  string contact= 2;
+  string adresse=3;
+  
+}
+
+message CreateFournisseurResponse { // Remplacer "CreateClientResponse" par "CreateFournisseurResponse"
+  Fournisseur fournisseur = 1; // Le fournisseur créé // Remplacer "Client" par "Fournisseur"
+}
+
+message DeleteFournisseurRequest { // Remplacer "DeleteClientRequest" par "DeleteFournisseurRequest"
+  string fournisseur_id = 1; // Identifiant du fournisseur à supprimer // Remplacer "client_id" par "fournisseur_id"
+}
+
+message DeleteFournisseurResponse { // Remplacer "DeleteClientResponse" par "DeleteFournisseurResponse"
+  string message = 1; // Message de confirmation
+}
+
+message UpdateFournisseurRequest { // Remplacer "UpdateClientRequest" par "UpdateFournisseurRequest"
+  string fournisseur_id = 1; // Identifiant du fournisseur à mettre à jour // Remplacer "client_id" par "fournisseur_id"
+  string nom = 2;
+  string contact = 3;
+  string adresse=4;
+}
+
+message UpdateFournisseurResponse { // Remplacer "UpdateClientResponse" par "UpdateFournisseurResponse"
+  Fournisseur fournisseur = 1; // Le fournisseur mis à jour // Remplacer "Client" par "Fournisseur"
+}
+
+service FournisseurService { // Remplacer "ClientService" par "FournisseurService"
+  rpc GetFournisseur(GetFournisseurRequest) returns (GetFournisseurResponse); // Obtenir un fournisseur // Remplacer "GetClient" par "GetFournisseur"
+  rpc CreateFournisseur(CreateFournisseurRequest) returns (CreateFournisseurResponse); // Créer un fournisseur // Remplacer "CreateClient" par "CreateFournisseur"
+  rpc DeleteFournisseur(DeleteFournisseurRequest) returns (DeleteFournisseurResponse); // Supprimer un fournisseur // Remplacer "DeleteClient" par "DeleteFournisseur"
+  rpc UpdateFournisseur(UpdateFournisseurRequest) returns (UpdateFournisseurResponse); // Mettre à jour un fournisseur // Remplacer "UpdateClient" par "UpdateFournisseur"
+}
